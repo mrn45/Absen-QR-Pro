@@ -17,7 +17,7 @@ export function KalenderView() {
     }
     
     if (!db.app.options.apiKey) {
-      showToast('Firebase belum dikonfigurasi', 'error');
+      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
       return;
     }
 
@@ -57,7 +57,7 @@ export function KalenderView() {
   const autoGenerateLibur = async () => {
     if (!confirm('Tambahkan Hari Libur Nasional 2026 ke kalender?')) return;
     if (!db.app.options.apiKey) {
-      showToast('Firebase belum dikonfigurasi', 'error');
+      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
       return;
     }
 

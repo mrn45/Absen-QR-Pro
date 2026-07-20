@@ -26,7 +26,7 @@ export function SiswaView() {
       return;
     }
     if (!db.app.options.apiKey) {
-      showToast('Firebase belum dikonfigurasi', 'error');
+      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
       return;
     }
     
