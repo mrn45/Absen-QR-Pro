@@ -1,0 +1,10 @@
+{
+  "name": "Sistem Absensi Sekolah",
+  "description": "Aplikasi sistem absensi sekolah dengan fitur scan QR Code, laporan harian, rekapitulasi, dan manajemen jam KBM (masuk & pulang).",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
