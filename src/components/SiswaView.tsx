@@ -25,10 +25,6 @@ export function SiswaView() {
       showToast('Lengkapi semua data', 'error');
       return;
     }
-    if (!db.app.options.apiKey) {
-      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
-      return;
-    }
     
     setLoading(true);
     try {
@@ -45,7 +41,6 @@ export function SiswaView() {
 
   const handleDeleteSiswa = async (nisToDelete: string) => {
     if (!confirm(`Hapus siswa NIS ${nisToDelete}?`)) return;
-    if (!db.app.options.apiKey) return;
 
     setLoading(true);
     try {

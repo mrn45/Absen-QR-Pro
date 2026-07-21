@@ -31,17 +31,13 @@ export function LoginScreen() {
     }
 
     try {
-      if (db.app.options.apiKey) {
-        const q = query(collection(db, 'akun'), where('username', '==', username), where('password', '==', password));
-        const snapshot = await getDocs(q);
-        if (!snapshot.empty) {
-          const data = snapshot.docs[0].data();
-          setRole(data.role || 'Piket');
-        } else {
-          showToast('Login Gagal', 'error');
-        }
+      const q = query(collection(db, 'akun'), where('username', '==', username), where('password', '==', password));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const data = snapshot.docs[0].data();
+        setRole(data.role || 'Piket');
       } else {
-        showToast('Login Gagal, Firebase belum dikonfigurasi', 'error');
+        showToast('Login Gagal', 'error');
       }
     } catch (error) {
       showToast('Error koneksi database', 'error');

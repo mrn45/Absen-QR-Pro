@@ -131,10 +131,6 @@ export function ScannerView() {
       return;
     }
 
-    if (!db.app.options.apiKey) {
-      triggerOverlay('Sistem', 'Database Belum Dikonfigurasi', true);
-      return;
-    }
 
     try {
       const tz = new Date().getTimezoneOffset() * 60000;

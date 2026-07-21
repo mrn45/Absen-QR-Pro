@@ -40,7 +40,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const loadSiswa = async () => {
-    if (!db.app.options.apiKey) return;
     try {
       const q = query(collection(db, 'siswa'));
       const snapshot = await getDocs(q);
@@ -53,7 +52,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const loadAbsen = async () => {
-    if (!db.app.options.apiKey) return;
     try {
       const q = query(collection(db, 'absen'));
       const snapshot = await getDocs(q);
@@ -66,7 +64,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const loadAkun = async () => {
-    if (!db.app.options.apiKey) return;
     try {
       const q = query(collection(db, 'akun'));
       const snapshot = await getDocs(q);
@@ -79,7 +76,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const loadLibur = async () => {
-    if (!db.app.options.apiKey) return;
     try {
       const q = query(collection(db, 'libur'));
       const snapshot = await getDocs(q);
@@ -92,7 +88,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const loadPengaturan = async () => {
-    if (!db.app.options.apiKey) return;
     try {
       const q = query(collection(db, 'pengaturan'));
       const snapshot = await getDocs(q);

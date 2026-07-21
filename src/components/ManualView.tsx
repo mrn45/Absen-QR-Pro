@@ -42,10 +42,6 @@ export function ManualView() {
     const s = siswaList.find(x => x.nis === nis);
     if (!s) return;
 
-    if (!db.app.options.apiKey) {
-      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
-      return;
-    }
 
     setLoading(true);
     try {

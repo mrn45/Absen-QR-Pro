@@ -17,10 +17,6 @@ export function KalenderView() {
       return;
     }
     
-    if (!db.app.options.apiKey) {
-      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
-      return;
-    }
 
     setLoading(true);
     try {
@@ -41,7 +37,6 @@ export function KalenderView() {
 
   const handleDelete = async (t: string) => {
     if (!confirm('Hapus hari libur ini?')) return;
-    if (!db.app.options.apiKey) return;
 
     setLoading(true);
     try {
