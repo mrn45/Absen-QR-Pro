@@ -47,7 +47,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSiswaList(data);
     } catch (error) {
       console.error(error);
-      showToast('Gagal memuat data siswa', 'error');
+      
     }
   };
 
@@ -59,7 +59,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setAbsenList(data);
     } catch (error) {
       console.error(error);
-      showToast('Gagal memuat data absen', 'error');
+      
     }
   };
 
@@ -71,7 +71,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setAkunList(data);
     } catch (error) {
       console.error(error);
-      showToast('Gagal memuat akun', 'error');
+      
     }
   };
 
@@ -83,7 +83,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setLiburList(data);
     } catch (error) {
       console.error(error);
-      showToast('Gagal memuat data libur', 'error');
+      
     }
   };
 
@@ -98,7 +98,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       console.error(error);
-      showToast('Gagal memuat pengaturan', 'error');
+      
     }
   };
 
@@ -128,7 +128,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center flex-col bg-white/80 backdrop-blur-sm z-[9999]">
           <div className="spinner mb-4"></div>
-          <p className="text-indigo-600 font-semibold animate-pulse">Memproses Data...</p>
+          <p className="text-gray-900 font-semibold animate-pulse">Memproses Data...</p>
         </div>
       )}
       

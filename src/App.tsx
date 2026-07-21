@@ -44,7 +44,7 @@ function AppContent() {
           setActiveTab(id);
           setSidebarOpen(false);
         }}
-        className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-xl transition-all font-medium ${isActive ? 'bg-indigo-50 text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}
+        className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-xl transition-all font-medium ${isActive ? 'bg-gray-900 text-white shadow-md' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'}`}
       >
         <Icon className="w-5 h-5" /> {label}
       </button>
@@ -56,10 +56,10 @@ function AppContent() {
       {/* Mobile Header */}
       <div className="md:hidden bg-white h-16 border-b border-gray-200 flex justify-between items-center px-4 z-30 shadow-sm relative">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+          <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white">
             <Zap className="w-4 h-4" />
           </div>
-          <h1 className="font-bold text-gray-800 text-lg">Absensi<span className="text-indigo-600">Pro</span></h1>
+          <h1 className="font-bold text-gray-800 text-lg">Absensi<span className="text-gray-400 font-light">Pro</span></h1>
         </div>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-600 text-2xl focus:outline-none p-2">
           <Menu className="w-6 h-6" />
@@ -74,10 +74,10 @@ function AppContent() {
       {/* Sidebar Navigation */}
       <div className={`w-72 bg-white h-full border-r border-gray-200 flex flex-col transition-transform duration-300 fixed md:relative z-50 shadow-2xl md:shadow-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
         <div className="p-6 border-b border-gray-100 hidden md:flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+          <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center text-white shadow-lg">
             <Zap className="w-5 h-5" />
           </div>
-          <h1 className="font-black text-gray-900 text-2xl tracking-tight">Absensi<span className="text-indigo-600">Pro</span></h1>
+          <h1 className="font-black text-gray-900 text-2xl tracking-tight">Absensi<span className="text-gray-400 font-light">Pro</span></h1>
         </div>
         
         <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
@@ -100,12 +100,12 @@ function AppContent() {
         {/* Role Badge Footer */}
         <div className="p-4 border-t border-gray-100 bg-gray-50">
           <div className="flex items-center gap-3 mb-4 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${role === 'Admin' ? 'bg-indigo-100 text-indigo-600' : 'bg-yellow-100 text-yellow-600'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${role === 'Admin' ? 'bg-gray-100 text-gray-900' : 'bg-yellow-100 text-yellow-600'}`}>
               <Shield className="w-5 h-5" />
             </div>
             <div className="flex-1 overflow-hidden">
               <p className="text-sm font-bold text-gray-800 truncate">Sesi Aktif</p>
-              <p className={`text-[10px] text-white px-2 py-0.5 rounded-full inline-block mt-0.5 shadow-sm font-bold tracking-wider ${role === 'Admin' ? 'bg-green-500' : 'bg-yellow-500'}`}>
+              <p className={`text-[10px] text-white px-2 py-0.5 rounded-full inline-block mt-0.5 shadow-sm font-bold tracking-wider ${role === 'Admin' ? 'bg-gray-900' : 'bg-gray-500'}`}>
                 {role === 'Admin' ? 'FULL AKSES' : 'AKSES TERBATAS'}
               </p>
             </div>

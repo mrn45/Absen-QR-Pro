@@ -107,10 +107,10 @@ export function KalenderView() {
           <p className="text-sm text-gray-500 mt-1">Hari Minggu otomatis dihitung libur. Tambahkan libur nasional agar persentase akurat.</p>
         </div>
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-          <button onClick={() => setModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-indigo-700 font-semibold text-sm transition-all">
+          <button onClick={() => setModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-black font-semibold text-sm transition-all">
             <Plus className="w-4 h-4" /> Tambah Manual
           </button>
-          <button onClick={() => fileInputRef.current?.click()} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-emerald-500 text-white px-4 py-2.5 rounded-xl shadow-md hover:bg-emerald-600 font-semibold text-sm transition-all">
+          <button onClick={() => fileInputRef.current?.click()} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-white text-gray-800 border border-gray-200 px-4 py-2.5 rounded-xl shadow-md hover:bg-gray-50 font-semibold text-sm transition-all">
             <FileDown className="w-4 h-4" /> Import CSV
           </button>
           <input type="file" ref={fileInputRef} accept=".csv" className="hidden" onChange={handleUploadCSV} />
@@ -156,16 +156,16 @@ export function KalenderView() {
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Tanggal</label>
-                <input type="date" value={tgl} onChange={e => setTgl(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <input type="date" value={tgl} onChange={e => setTgl(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Keterangan</label>
-                <input type="text" value={ket} onChange={e => setKet(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Cth: Libur Semester" />
+                <input type="text" value={ket} onChange={e => setKet(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" placeholder="Cth: Libur Semester" />
               </div>
             </div>
             <div className="mt-8 flex justify-end gap-3">
               <button onClick={() => setModalOpen(false)} className="px-5 py-2.5 text-gray-600 font-bold hover:bg-gray-100 rounded-xl transition-colors">Batal</button>
-              <button onClick={handleSave} className="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 shadow-md">Simpan</button>
+              <button onClick={handleSave} className="px-5 py-2.5 bg-gray-900 text-white font-bold rounded-xl hover:bg-black shadow-md">Simpan</button>
             </div>
           </div>
         </div>

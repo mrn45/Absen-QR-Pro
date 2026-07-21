@@ -208,10 +208,10 @@ export function ScannerView() {
   };
 
   const badgeConfig = {
-    'kbm_masuk': { text: 'MODE: DATANG', bg: 'bg-blue-600' },
+    'kbm_masuk': { text: 'MODE: DATANG', bg: 'bg-gray-900' },
     'kbm_pulang': { text: 'MODE: PULANG', bg: 'bg-orange-600' },
     'sholat_dhuha': { text: 'MODE: DHUHA', bg: 'bg-teal-600' },
-    'sholat_dzuhur': { text: 'MODE: DZUHUR', bg: 'bg-purple-600' }
+    'sholat_dzuhur': { text: 'MODE: DZUHUR', bg: 'bg-gray-700' }
   };
 
   return (
@@ -221,15 +221,15 @@ export function ScannerView() {
       
       {menu === 'main' && (
         <div className="max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <button onClick={() => setMenu('kbm')} className="bg-white p-6 rounded-3xl shadow-soft border-2 border-indigo-100 hover:border-indigo-500 hover:shadow-lg transition-all group">
-            <div className="w-16 h-16 bg-indigo-50 rounded-2xl mx-auto flex items-center justify-center text-indigo-500 text-3xl mb-4 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+          <button onClick={() => setMenu('kbm')} className="bg-white p-6 rounded-3xl shadow-soft border-2 border-gray-200 hover:border-gray-900 hover:shadow-lg transition-all group">
+            <div className="w-16 h-16 bg-gray-100 rounded-2xl mx-auto flex items-center justify-center text-gray-900 text-3xl mb-4 group-hover:bg-gray-800 group-hover:text-white transition-colors">
               <School className="w-8 h-8" />
             </div>
             <h3 className="font-bold text-gray-800 text-lg">Absen KBM</h3>
             <p className="text-xs text-gray-400 mt-1">Kehadiran Harian (Datang/Pulang)</p>
           </button>
-          <button onClick={() => setMenu('sholat')} className="bg-white p-6 rounded-3xl shadow-soft border-2 border-emerald-100 hover:border-emerald-500 hover:shadow-lg transition-all group">
-            <div className="w-16 h-16 bg-emerald-50 rounded-2xl mx-auto flex items-center justify-center text-emerald-500 text-3xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+          <button onClick={() => setMenu('sholat')} className="bg-white p-6 rounded-3xl shadow-soft border-2 border-gray-200 hover:border-gray-900 hover:shadow-lg transition-all group">
+            <div className="w-16 h-16 bg-gray-100 rounded-2xl mx-auto flex items-center justify-center text-gray-900 text-3xl mb-4 group-hover:bg-gray-900 group-hover:text-white transition-colors">
             <Building2 className="w-8 h-8" />
             </div>
             <h3 className="font-bold text-gray-800 text-lg">Absen Sholat</h3>
@@ -242,10 +242,10 @@ export function ScannerView() {
         <div className="max-w-md mx-auto bg-white p-6 rounded-3xl shadow-xl border border-gray-100 mb-8 fade-in-up">
           <h3 className="font-bold text-gray-800 text-lg mb-4">Pilih Mode Absen KBM:</h3>
           <div className="flex gap-3">
-            <button onClick={() => openScanner('kbm_masuk')} className="flex-1 flex items-center justify-center gap-1 bg-blue-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-600">
+            <button onClick={() => openScanner('kbm_masuk')} className="flex-1 flex items-center justify-center gap-1 bg-gray-800 text-white py-3 rounded-xl font-bold shadow-md hover:bg-gray-900">
               <LogIn className="w-5 h-5" /> DATANG
             </button>
-            <button onClick={() => openScanner('kbm_pulang')} className="flex-1 flex items-center justify-center gap-1 bg-orange-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-orange-600">
+            <button onClick={() => openScanner('kbm_pulang')} className="flex-1 flex items-center justify-center gap-1 bg-gray-800 text-white py-3 rounded-xl font-bold shadow-md hover:bg-gray-700">
               <LogOut className="w-5 h-5" /> PULANG
             </button>
           </div>
@@ -260,7 +260,7 @@ export function ScannerView() {
             <button onClick={() => openScanner('sholat_dhuha')} className="flex-1 flex items-center justify-center gap-1 bg-teal-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-teal-600">
               <Sun className="w-5 h-5" /> DHUHA
             </button>
-            <button onClick={() => openScanner('sholat_dzuhur')} className="flex-1 flex items-center justify-center gap-1 bg-purple-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-purple-600">
+            <button onClick={() => openScanner('sholat_dzuhur')} className="flex-1 flex items-center justify-center gap-1 bg-gray-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-gray-700">
               <CloudSun className="w-5 h-5" /> DZUHUR
             </button>
           </div>
@@ -269,8 +269,8 @@ export function ScannerView() {
       )}
 
       {menu === 'scanner' && (
-        <div className="max-w-3xl mx-auto relative glass-panel p-4 rounded-3xl shadow-2xl border border-indigo-100 fade-in-up">
-          <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 ${badgeConfig[scanMode as keyof typeof badgeConfig]?.bg || 'bg-blue-600'} text-white px-6 py-2 rounded-full font-black tracking-widest shadow-lg z-20 text-sm border-2 border-white`}>
+        <div className="max-w-3xl mx-auto relative glass-panel p-4 rounded-3xl shadow-2xl border border-gray-200 fade-in-up">
+          <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 ${badgeConfig[scanMode as keyof typeof badgeConfig]?.bg || 'bg-gray-900'} text-white px-6 py-2 rounded-full font-black tracking-widest shadow-lg z-20 text-sm border-2 border-white`}>
             {badgeConfig[scanMode as keyof typeof badgeConfig]?.text}
           </div>
           
@@ -278,12 +278,12 @@ export function ScannerView() {
             <div id="reader" style={{ width: '100%', border: 'none' }}></div>
             
             <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
-              <div className="w-64 h-64 border-4 border-indigo-500/50 rounded-3xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-indigo-400 rounded-tl-3xl"></div>
-                <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-indigo-400 rounded-tr-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-indigo-400 rounded-bl-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-indigo-400 rounded-br-3xl"></div>
-                <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500 shadow-[0_0_10px_2px_rgba(99,102,241,0.5)]" style={{ animation: 'scanLine 2s linear infinite' }}></div>
+              <div className="w-64 h-64 border-4 border-gray-900/50 rounded-3xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-gray-900 rounded-tl-3xl"></div>
+                <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-gray-900 rounded-tr-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-gray-900 rounded-bl-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-gray-900 rounded-br-3xl"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-gray-800 shadow-[0_0_10px_2px_rgba(99,102,241,0.5)]" style={{ animation: 'scanLine 2s linear infinite' }}></div>
               </div>
             </div>
 
@@ -299,7 +299,7 @@ export function ScannerView() {
           </div>
 
           <div className="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <select value={selectedCamera} onChange={handleCameraChange} className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto font-medium">
+            <select value={selectedCamera} onChange={handleCameraChange} className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-gray-900 w-full sm:w-auto font-medium">
               {cameras.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
             <button onClick={stopScanner} className="w-full sm:w-auto flex items-center justify-center gap-1 bg-red-50 text-red-600 px-6 py-2.5 rounded-xl hover:bg-red-100 font-bold transition-colors border border-red-100">

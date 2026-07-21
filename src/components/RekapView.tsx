@@ -107,14 +107,14 @@ export function RekapView() {
       <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-6 flex flex-wrap gap-3 items-end relative z-20">
         <div className="flex-1 min-w-[120px]">
           <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Kategori</label>
-          <select value={kat} onChange={e => setKat(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none appearance-none font-medium">
+          <select value={kat} onChange={e => setKat(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none appearance-none font-medium">
             <option value="kbm">Absen KBM</option>
             <option value="sholat">Absen Sholat</option>
           </select>
         </div>
         <div className="flex-1 min-w-[120px]">
           <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Mode</label>
-          <select value={rentang} onChange={e => setRentang(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none appearance-none font-medium">
+          <select value={rentang} onChange={e => setRentang(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none appearance-none font-medium">
             <option value="harian">Harian</option>
             <option value="mingguan">Mingguan</option>
             <option value="bulanan">Bulanan</option>
@@ -124,32 +124,32 @@ export function RekapView() {
         {rentang === 'harian' && (
           <div className="flex-1 min-w-[140px]">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Pilih Tanggal</label>
-            <input type="date" value={valTgl} onChange={e => setValTgl(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-medium" />
+            <input type="date" value={valTgl} onChange={e => setValTgl(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none font-medium" />
           </div>
         )}
         {rentang === 'bulanan' && (
           <div className="flex-1 min-w-[140px]">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Pilih Bulan</label>
-            <input type="month" value={valBln} onChange={e => setValBln(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-medium" />
+            <input type="month" value={valBln} onChange={e => setValBln(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none font-medium" />
           </div>
         )}
         {rentang === 'mingguan' && (
           <div className="flex-1 min-w-[140px]">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Pilih Minggu</label>
-            <input type="week" value={valMgg} onChange={e => setValMgg(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-medium" />
+            <input type="week" value={valMgg} onChange={e => setValMgg(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none font-medium" />
           </div>
         )}
 
         <div className="flex-1 min-w-[120px]">
           <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Jenjang</label>
-          <select value={fJenjang} onChange={e => setFJenjang(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none appearance-none font-medium">
+          <select value={fJenjang} onChange={e => setFJenjang(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none appearance-none font-medium">
             <option value="Semua">Semua Jenjang</option>
             {jenjangFilters.map(j => <option key={j} value={j}>{j}</option>)}
           </select>
         </div>
         <div className="flex-1 min-w-[120px]">
           <label className="text-xs font-bold text-gray-500 uppercase tracking-wide ml-1">Kelas</label>
-          <select value={fKelas} onChange={e => setFKelas(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none appearance-none font-medium">
+          <select value={fKelas} onChange={e => setFKelas(e.target.value)} className="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 outline-none appearance-none font-medium">
             <option value="Semua">Semua Kelas</option>
             {kelasFilters.map(k => <option key={k} value={k}>{k}</option>)}
           </select>
@@ -282,7 +282,7 @@ export function RekapView() {
                       <td className="p-4 border-b border-gray-50">{s.nis}</td>
                       <td className="p-4 border-b font-bold">{s.nama} <span className="text-xs font-normal text-gray-400 block">{s.kelas}</span></td>
                       <td className="p-4 border-b text-center font-mono">{dhuha} | {dzuhur}</td>
-                      <td className="p-4 border-b text-center font-black text-indigo-500">{pct}%</td>
+                      <td className="p-4 border-b text-center font-black text-gray-900">{pct}%</td>
                     </tr>
                   );
                 }

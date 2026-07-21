@@ -56,7 +56,7 @@ export function AkunView() {
           <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Manajemen Akun Piket</h2>
           <p className="text-sm text-gray-500">Buat akun dengan hak akses terbatas (Data Siswa Read-Only, Scanner, Manual, Rekap).</p>
         </div>
-        <button onClick={() => setModalOpen(true)} className="flex items-center justify-center gap-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-indigo-700 font-semibold text-sm transition-all w-full sm:w-auto">
+        <button onClick={() => setModalOpen(true)} className="flex items-center justify-center gap-1 bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-black font-semibold text-sm transition-all w-full sm:w-auto">
           <UserPlus className="w-4 h-4" /> Buat Akun
         </button>
       </div>
@@ -98,21 +98,21 @@ export function AkunView() {
         <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl fade-in-up">
             <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
-              <UserPlus className="text-indigo-500 w-6 h-6" /> Buat Akun Piket
+              <UserPlus className="text-gray-900 w-6 h-6" /> Buat Akun Piket
             </h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Username</label>
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Cth: piket_senin" />
+                <input type="text" value={username} onChange={e => setUsername(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" placeholder="Cth: piket_senin" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Password</label>
-                <input type="text" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Minimal 6 karakter" />
+                <input type="text" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" placeholder="Minimal 6 karakter" />
               </div>
             </div>
             <div className="mt-8 flex justify-end gap-3">
               <button onClick={() => setModalOpen(false)} className="px-5 py-2.5 text-gray-600 font-bold hover:bg-gray-100 rounded-xl transition-colors">Batal</button>
-              <button onClick={handleSave} className="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 shadow-md">Simpan Akun</button>
+              <button onClick={handleSave} className="px-5 py-2.5 bg-gray-900 text-white font-bold rounded-xl hover:bg-black shadow-md">Simpan Akun</button>
             </div>
           </div>
         </div>

@@ -86,7 +86,7 @@ export function Dashboard() {
     <div>
       <div className="mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Dashboard Overview</h2>
-        <p className="text-gray-500 text-sm md:text-base mt-1">Pantau statistik kehadiran <span className="font-semibold text-indigo-600">{tglFormat}</span></p>
+        <p className="text-gray-500 text-sm md:text-base mt-1">Pantau statistik kehadiran <span className="font-semibold text-gray-900">{tglFormat}</span></p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -122,7 +122,7 @@ export function Dashboard() {
                       <p className="font-bold text-gray-800 text-sm">{s.nama}</p>
                       <p className="text-xs text-gray-500">{s.nis}</p>
                     </div>
-                    <span className="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-700 rounded-md">{s.kelas}</span>
+                    <span className="text-xs font-bold px-2 py-1 bg-gray-200 text-gray-900 rounded-md">{s.kelas}</span>
                   </li>
                 )) : (
                   <li className="text-center text-sm text-gray-500 py-4">Tidak ada data.</li>

@@ -48,10 +48,10 @@ export function PengaturanView() {
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-soft p-6 md:p-8 border border-gray-100 relative overflow-hidden fade-in-up">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-bl-full pointer-events-none -mr-10 -mt-10"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gray-100 rounded-bl-full pointer-events-none -mr-10 -mt-10"></div>
       
       <h2 className="text-2xl font-black text-gray-900 tracking-tight mb-2 relative z-10 flex items-center gap-2">
-        <Settings className="w-6 h-6 text-indigo-500" />
+        <Settings className="w-6 h-6 text-gray-900" />
         Pengaturan Sistem
       </h2>
       <p className="text-gray-500 text-sm mb-6 relative z-10">Atur jam masuk dan pulang KBM. Siswa yang tidak absen pulang setelah jam pulang akan otomatis tercatat sebagai Alfa.</p>
@@ -60,15 +60,15 @@ export function PengaturanView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">Jam Masuk</label>
-            <input type="time" value={jamMasuk} onChange={e => setJamMasuk(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all font-medium" />
+            <input type="time" value={jamMasuk} onChange={e => setJamMasuk(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-gray-900 outline-none transition-all font-medium" />
           </div>
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">Jam Pulang</label>
-            <input type="time" value={jamPulang} onChange={e => setJamPulang(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all font-medium" />
+            <input type="time" value={jamPulang} onChange={e => setJamPulang(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-gray-900 outline-none transition-all font-medium" />
           </div>
         </div>
         
-        <button onClick={handleSave} className="w-full flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-colors mt-4">
+        <button onClick={handleSave} className="w-full flex justify-center items-center gap-2 bg-gray-900 hover:bg-black text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-colors mt-4">
           <Save className="w-5 h-5" /> Simpan Pengaturan
         </button>
       </div>

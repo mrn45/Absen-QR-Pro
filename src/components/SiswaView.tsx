@@ -173,17 +173,17 @@ export function SiswaView() {
         <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Data Induk Siswa</h2>
         {isAdmin && (
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-            <button onClick={() => setModalAddOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-indigo-700 font-semibold text-sm transition-all">
+            <button onClick={() => setModalAddOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-black font-semibold text-sm transition-all">
               <Plus className="w-4 h-4" /> Tambah Siswa
             </button>
-            <button onClick={() => fileInputRef.current?.click()} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-emerald-500 text-white px-4 py-2.5 rounded-xl shadow-md hover:bg-emerald-600 font-semibold text-sm transition-all">
+            <button onClick={() => fileInputRef.current?.click()} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-white text-gray-800 border border-gray-200 px-4 py-2.5 rounded-xl shadow-md hover:bg-gray-50 font-semibold text-sm transition-all">
               <FileDown className="w-4 h-4" /> Import CSV
             </button>
             <input type="file" ref={fileInputRef} accept=".csv" className="hidden" onChange={handleUploadCSV} />
             <button onClick={downloadTemplateCSV} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl hover:bg-gray-300 font-semibold text-sm transition-all">
               <Download className="w-4 h-4" /> Template
             </button>
-            <button onClick={printAllQR} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-purple-500 text-white px-4 py-2.5 rounded-xl shadow-md hover:bg-purple-600 font-semibold text-sm transition-all">
+            <button onClick={printAllQR} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-gray-100 text-gray-800 px-4 py-2.5 rounded-xl shadow-md hover:bg-gray-200 font-semibold text-sm transition-all">
               <Printer className="w-4 h-4" /> Cetak Semua QR
             </button>
           </div>
@@ -203,14 +203,14 @@ export function SiswaView() {
           </thead>
           <tbody className="text-sm divide-y divide-gray-50">
             {siswaList.map(s => (
-              <tr key={s.nis} className="hover:bg-indigo-50/30 transition-colors group">
+              <tr key={s.nis} className="hover:bg-gray-100/30 transition-colors group">
                 <td className="p-4 font-semibold text-gray-700">{s.nis}</td>
                 <td className="p-4 font-bold text-gray-900">{s.nama}</td>
                 <td className="p-4"><span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-xs font-bold border border-gray-200">{s.jenjang}</span></td>
                 <td className="p-4 font-medium text-gray-600">{s.kelas}</td>
                 {isAdmin && (
                   <td className="p-4 text-center">
-                    <button onClick={() => generateQR(s)} className="text-indigo-500 hover:bg-indigo-100 p-2 rounded-lg transition-colors tooltip mr-1">
+                    <button onClick={() => generateQR(s)} className="text-gray-900 hover:bg-gray-200 p-2 rounded-lg transition-colors tooltip mr-1">
                       <QrCode className="w-5 h-5" />
                     </button>
                     <button onClick={() => handleDeleteSiswa(s.nis)} className="text-red-500 hover:bg-red-100 p-2 rounded-lg transition-colors tooltip">
@@ -232,21 +232,21 @@ export function SiswaView() {
         <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl fade-in-up">
             <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
-              <UserPlus className="text-indigo-500 w-6 h-6" /> Tambah Siswa Baru
+              <UserPlus className="text-gray-900 w-6 h-6" /> Tambah Siswa Baru
             </h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">NIS</label>
-                <input type="number" value={nis} onChange={e => setNis(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <input type="number" value={nis} onChange={e => setNis(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Nama Lengkap</label>
-                <input type="text" value={nama} onChange={e => setNama(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <input type="text" value={nama} onChange={e => setNama(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Jenjang</label>
-                  <select value={jenjang} onChange={e => setJenjang(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none">
+                  <select value={jenjang} onChange={e => setJenjang(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none appearance-none">
                     <option value="SMA">SMA</option>
                     <option value="SMK">SMK</option>
                     <option value="SMP">SMP</option>
@@ -254,13 +254,13 @@ export function SiswaView() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Kelas</label>
-                  <input type="text" value={kelas} onChange={e => setKelas(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Cth: X IPA 1" />
+                  <input type="text" value={kelas} onChange={e => setKelas(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-900 outline-none" placeholder="Cth: X IPA 1" />
                 </div>
               </div>
             </div>
             <div className="mt-8 flex justify-end gap-3">
               <button onClick={() => setModalAddOpen(false)} className="px-5 py-2.5 text-gray-600 font-bold hover:bg-gray-100 rounded-xl transition-colors">Batal</button>
-              <button onClick={handleSaveSiswa} className="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 shadow-md transition-colors">Simpan Data</button>
+              <button onClick={handleSaveSiswa} className="px-5 py-2.5 bg-gray-900 text-white font-bold rounded-xl hover:bg-black shadow-md transition-colors">Simpan Data</button>
             </div>
           </div>
         </div>
@@ -271,13 +271,13 @@ export function SiswaView() {
         <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl text-center flex flex-col items-center">
             <h3 className="text-xl font-black text-gray-900 mb-1">{qrData.nama}</h3>
-            <p className="text-sm font-bold text-indigo-600 mb-6 bg-indigo-50 px-3 py-1 rounded-full">{qrData.kelas}</p>
+            <p className="text-sm font-bold text-gray-900 mb-6 bg-gray-100 px-3 py-1 rounded-full">{qrData.kelas}</p>
             <div className="bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-100 mb-6 inline-block">
               {renderQrImg(qrData.nis)}
             </div>
             <div className="flex gap-3 w-full">
               <button onClick={() => setModalQrOpen(false)} className="flex-1 py-3 text-gray-600 font-bold bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">Tutup</button>
-              <button onClick={printCard} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 shadow-md transition-colors">
+              <button onClick={printCard} className="flex-1 flex items-center justify-center gap-2 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black shadow-md transition-colors">
                 <Printer className="w-4 h-4" /> Cetak Kartu
               </button>
             </div>
