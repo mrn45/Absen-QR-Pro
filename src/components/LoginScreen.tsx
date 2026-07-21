@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useAppContext } from '../AppContext';
-import { Fingerprint, User, Lock, ArrowRight } from 'lucide-react';
+import { Fingerprint, User, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const { setRole, showToast, setLoading } = useAppContext();
 
   const handleLogin = async () => {
@@ -80,13 +81,20 @@ export function LoginScreen() {
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" strokeWidth={1.5} />
               <input 
-                type="password" 
+                type={showPassword ? "text" : "password"} 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                className="w-full pl-12 pr-4 py-3.5 bg-gray-50/50 border border-gray-200/80 rounded-2xl focus:bg-white focus:ring-4 focus:ring-gray-900/5 focus:border-gray-900 transition-all outline-none text-gray-800 font-medium placeholder-gray-400" 
+                className="w-full pl-12 pr-12 py-3.5 bg-gray-50/50 border border-gray-200/80 rounded-2xl focus:bg-white focus:ring-4 focus:ring-gray-900/5 focus:border-gray-900 transition-all outline-none text-gray-800 font-medium placeholder-gray-400" 
                 placeholder="Password" 
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" strokeWidth={1.5} /> : <Eye className="w-5 h-5" strokeWidth={1.5} />}
+              </button>
             </div>
           </div>
           
