@@ -46,7 +46,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const data = snapshot.docs.map(doc => doc.data() as Siswa);
       setSiswaList(data);
     } catch (error) {
-      console.error(error);
+      console.error(error); showToast('Gagal memuat data: ' + (error as Error).message, 'error');
       
     }
   };
@@ -58,7 +58,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const data = snapshot.docs.map(doc => doc.data() as Absen);
       setAbsenList(data);
     } catch (error) {
-      console.error(error);
+      console.error(error); showToast('Gagal memuat data: ' + (error as Error).message, 'error');
       
     }
   };
@@ -70,7 +70,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const data = snapshot.docs.map(doc => doc.data() as Akun);
       setAkunList(data);
     } catch (error) {
-      console.error(error);
+      console.error(error); showToast('Gagal memuat data: ' + (error as Error).message, 'error');
       
     }
   };
@@ -82,7 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const data = snapshot.docs.map(doc => doc.data() as Libur);
       setLiburList(data);
     } catch (error) {
-      console.error(error);
+      console.error(error); showToast('Gagal memuat data: ' + (error as Error).message, 'error');
       
     }
   };
@@ -97,7 +97,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setPengaturan({ jamMasuk: '07:00', jamPulang: '15:00' });
       }
     } catch (error) {
-      console.error(error);
+      console.error(error); showToast('Gagal memuat data: ' + (error as Error).message, 'error');
       
     }
   };

@@ -21,14 +21,14 @@ export function KalenderView() {
     setLoading(true);
     try {
       // Don't wait for the server roundtrip, let Firestore handle offline persistence
-      addDoc(collection(db, 'libur'), { tgl, ket });
+      await addDoc(collection(db, 'libur'), { tgl, ket });
       showToast('Libur disimpan');
       setModalOpen(false);
       setTgl('');
       setKet('');
       
       // Update local state by re-fetching
-      setTimeout(loadLibur, 500);
+      loadLibur();
     } catch (e: any) {
       showToast(e.message || 'Gagal menyimpan libur', 'error');
     }
@@ -47,7 +47,7 @@ export function KalenderView() {
       // We don't await the promises to avoid blocking the UI if offline
       
       showToast('Libur berhasil dihapus');
-      setTimeout(loadLibur, 500);
+      loadLibur();
     } catch (e: any) {
       showToast(e.message || 'Gagal menghapus libur', 'error');
     }
@@ -62,11 +62,11 @@ export function KalenderView() {
     const reader = new FileReader();
     reader.onload = async (evt) => {
       const text = evt.target?.result as string;
-      const lines = text.split('\n');
+      const lines = text.split(/\r?\n/);
       let successCount = 0;
       
       for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',');
+        const cols = lines[i].split(/[,;]/);
         if (cols.length >= 2 && cols[0].trim() !== '') {
           try {
             // Check if already exists in liburList (optional, but good for duplicate prevention locally)
@@ -74,7 +74,7 @@ export function KalenderView() {
             const ketVal = cols[1].trim();
             
             if (!liburList.find(x => x.tgl === tglVal)) {
-               addDoc(collection(db, 'libur'), { tgl: tglVal, ket: ketVal });
+               await addDoc(collection(db, 'libur'), { tgl: tglVal, ket: ketVal });
                successCount++;
             }
           } catch (e) {
@@ -84,14 +84,14 @@ export function KalenderView() {
       }
       showToast(`${successCount} data libur berhasil diimport!`);
       if (fileInputRef.current) fileInputRef.current.value = '';
-      setTimeout(loadLibur, 500);
+      loadLibur();
       setLoading(false);
     };
     reader.readAsText(file);
   };
 
   const downloadTemplateCSV = () => {
-    const csv = "Tanggal (YYYY-MM-DD),Keterangan\n2026-01-01,Tahun Baru Masehi 2026\n2026-12-25,Hari Raya Natal";
+    const csv = "Tanggal (YYYY-MM-DD);Keterangan\n2026-01-01;Tahun Baru Masehi 2026\n2026-12-25;Hari Raya Natal";
     const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);

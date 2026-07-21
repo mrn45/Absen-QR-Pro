@@ -28,13 +28,13 @@ export function SiswaView() {
     
     setLoading(true);
     try {
-      addDoc(collection(db, 'siswa'), { nis, nama, jenjang, kelas });
+      await addDoc(collection(db, 'siswa'), { nis, nama, jenjang, kelas });
       showToast('Siswa berhasil ditambahkan');
       setModalAddOpen(false);
       setNis(''); setNama(''); setKelas('');
       loadSiswa();
     } catch (e) {
-      showToast('Gagal menyimpan siswa', 'error');
+      showToast('Gagal menyimpan siswa: ' + (e as Error).message, 'error'); console.error(e); alert('Error upload: ' + (e as Error).message);
     }
     setLoading(false);
   };
@@ -65,14 +65,14 @@ export function SiswaView() {
     const reader = new FileReader();
     reader.onload = async (evt) => {
       const text = evt.target?.result as string;
-      const lines = text.split('\n');
+      const lines = text.split(/\r?\n/);
       let successCount = 0;
       
       for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',');
+        const cols = lines[i].split(/[,;]/);
         if (cols.length >= 4 && cols[0].trim() !== '') {
           try {
-            addDoc(collection(db, 'siswa'), {
+            await addDoc(collection(db, 'siswa'), {
               nis: cols[0].trim(),
               nama: cols[1].trim(),
               jenjang: cols[2].trim(),
@@ -80,7 +80,7 @@ export function SiswaView() {
             });
             successCount++;
           } catch (e) {
-            console.error(e);
+            console.error(e); alert('Error upload: ' + (e as Error).message);
           }
         }
       }
@@ -93,7 +93,7 @@ export function SiswaView() {
   };
 
   const downloadTemplateCSV = () => {
-    const csv = "NIS,Nama Lengkap,Jenjang,Kelas\n101,Budi Santoso,SMA,X IPA 1";
+    const csv = "NIS;Nama Lengkap;Jenjang;Kelas\n101;Budi Santoso;SMA;X IPA 1";
     const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);

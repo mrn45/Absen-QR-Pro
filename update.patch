@@ -1,0 +1,11 @@
+--- src/components/SiswaView.tsx
++++ src/components/SiswaView.tsx
+@@ -72,7 +72,7 @@
+         const cols = lines[i].split(',');
+         if (cols.length >= 4 && cols[0].trim() !== '') {
+           try {
+-            addDoc(collection(db, 'siswa'), {
++            await addDoc(collection(db, 'siswa'), {
+               nis: cols[0].trim(),
+               nama: cols[1].trim(),
+               jenjang: cols[2].trim(),
