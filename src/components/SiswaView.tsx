@@ -115,32 +115,55 @@ export function SiswaView() {
 
   const printCard = () => {
     if (!qrData) return;
-    const printArea = document.getElementById('print-area');
-    if (printArea) {
-      const qr = qrcode(4, 'M');
-      qr.addData(qrData.nis.trim());
-      qr.make();
-      
-      printArea.innerHTML = `<div style="text-align:center; padding: 20px; border: 2px dashed #ccc; width: 250px; margin: 0 auto; font-family: sans-serif;">
-        <h3 style="margin: 0 0 5px 0;">KARTU ABSENSI</h3><p style="margin: 0 0 15px 0; font-size: 12px;">${qrData.nama}<br><b>${qrData.kelas}</b></p>${qr.createImgTag(6)}</div>`;
-      setTimeout(() => window.print(), 500);
+    const qr = qrcode(4, 'M');
+    qr.addData(qrData.nis.trim());
+    qr.make();
+    
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(`
+        <html><head><title>Cetak Kartu QR</title></head>
+        <body style="font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+          <div style="text-align:center; padding: 20px; border: 2px dashed #ccc; width: 250px;">
+            <h3 style="margin: 0 0 5px 0;">KARTU ABSENSI</h3>
+            <p style="margin: 0 0 15px 0; font-size: 12px;">${qrData.nama}<br><b>${qrData.kelas}</b></p>
+            ${qr.createImgTag(6)}
+          </div>
+        </body></html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    } else {
+      showToast('Izinkan pop-up untuk mencetak', 'error');
     }
   };
 
   const printAllQR = () => {
-    const printArea = document.getElementById('print-area');
-    if (printArea) {
-      let html = '<div style="display:flex; flex-wrap:wrap; gap: 20px; justify-content: center; font-family: sans-serif;">';
-      siswaList.forEach(s => {
-        const qr = qrcode(4, 'M'); 
-        qr.addData(String(s.nis).trim()); 
-        qr.make();
-        html += `<div style="text-align:center; padding: 15px; border: 1px solid #ccc; width: 200px; border-radius: 10px;">
-          <h4 style="margin: 0 0 5px 0; font-size: 14px;">${s.nama}</h4><p style="margin: 0 0 10px 0; font-size: 11px;">${s.kelas}</p>${qr.createImgTag(5)}</div>`;
-      });
-      html += '</div>';
-      printArea.innerHTML = html;
-      setTimeout(() => window.print(), 500);
+    let html = '<html><head><title>Cetak Semua QR Code</title></head><body style="font-family: sans-serif;"><div style="display:flex; flex-wrap:wrap; gap: 20px; justify-content: center;">';
+    siswaList.forEach(s => {
+      const qr = qrcode(4, 'M'); 
+      qr.addData(String(s.nis).trim()); 
+      qr.make();
+      html += `<div style="text-align:center; padding: 15px; border: 1px solid #ccc; width: 200px; border-radius: 10px;">
+        <h4 style="margin: 0 0 5px 0; font-size: 14px;">${s.nama}</h4><p style="margin: 0 0 10px 0; font-size: 11px;">${s.kelas}</p>${qr.createImgTag(5)}</div>`;
+    });
+    html += '</div></body></html>';
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    } else {
+      showToast('Izinkan pop-up untuk mencetak', 'error');
     }
   };
 

@@ -64,14 +64,27 @@ export function RekapView() {
   }, [siswaList, absenList, liburList, fJenjang, fKelas, rentang, valTgl, valBln, valMgg]);
 
   const printTable = () => {
-    const printArea = document.getElementById('print-area');
     const tableHTML = document.getElementById('table-rekap')?.outerHTML;
-    if (printArea && tableHTML) {
-      printArea.innerHTML = `<div style="font-family: sans-serif; padding: 20px;">
-        <h2 style="text-align:center; margin-bottom: 20px;">Laporan Absensi</h2>
-        <style> table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #ddd; padding: 8px; text-align: left; } th { background-color: #f2f2f2; } </style>
-        ${tableHTML}</div>`;
-      setTimeout(() => window.print(), 500);
+    if (tableHTML) {
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <html><head><title>Cetak Laporan Absensi</title></head>
+          <body style="font-family: sans-serif; padding: 20px;">
+            <h2 style="text-align:center; margin-bottom: 20px;">Laporan Absensi</h2>
+            <style> table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #ddd; padding: 8px; text-align: left; } th { background-color: #f2f2f2; } </style>
+            ${tableHTML}
+          </body></html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 500);
+      } else {
+        alert('Izinkan pop-up untuk mencetak');
+      }
     }
   };
 
