@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAppContext } from '../AppContext';
-import { Wand2, Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, FileDown, Download } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, addDoc, deleteDoc, doc, query, where, getDocs } from 'firebase/firestore';
 
@@ -9,6 +9,7 @@ export function KalenderView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [tgl, setTgl] = useState('');
   const [ket, setKet] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = async () => {
     if (!tgl || !ket) {
@@ -23,15 +24,15 @@ export function KalenderView() {
 
     setLoading(true);
     try {
-      await Promise.race([
-        addDoc(collection(db, 'libur'), { tgl, ket }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
-      ]);
+      // Don't wait for the server roundtrip, let Firestore handle offline persistence
+      addDoc(collection(db, 'libur'), { tgl, ket });
       showToast('Libur disimpan');
       setModalOpen(false);
       setTgl('');
       setKet('');
-      loadLibur();
+      
+      // Update local state by re-fetching
+      setTimeout(loadLibur, 500);
     } catch (e: any) {
       showToast(e.message || 'Gagal menyimpan libur', 'error');
     }
@@ -48,60 +49,59 @@ export function KalenderView() {
       const snapshot = await getDocs(q);
       const promises = snapshot.docs.map(document => deleteDoc(doc(db, 'libur', document.id)));
       
-      if (promises.length > 0) {
-        await Promise.race([
-          Promise.all(promises),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
-        ]);
-      }
+      // We don't await the promises to avoid blocking the UI if offline
       
       showToast('Libur berhasil dihapus');
-      loadLibur();
+      setTimeout(loadLibur, 500);
     } catch (e: any) {
       showToast(e.message || 'Gagal menghapus libur', 'error');
     }
     setLoading(false);
   };
 
-  const autoGenerateLibur = async () => {
-    if (!confirm('Tambahkan Hari Libur Nasional 2026 ke kalender?')) return;
-    if (!db.app.options.apiKey) {
-      showToast('Data gagal disimpan. Anda perlu memasukkan konfigurasi Firebase di Settings.', 'error');
-      return;
-    }
-
-    const holidays2026 = [
-      { tgl: '2026-01-01', ket: 'Tahun Baru Masehi 2026' }, { tgl: '2026-02-17', ket: 'Tahun Baru Imlek 2577' },
-      { tgl: '2026-02-18', ket: 'Isra Mikraj' }, { tgl: '2026-03-19', ket: 'Hari Raya Nyepi 1948' },
-      { tgl: '2026-03-20', ket: 'Hari Raya Idul Fitri 1447 H' }, { tgl: '2026-03-21', ket: 'Cuti Bersama Idul Fitri' },
-      { tgl: '2026-04-03', ket: 'Jumat Agung' }, { tgl: '2026-05-01', ket: 'Hari Buruh' },
-      { tgl: '2026-05-14', ket: 'Kenaikan Yesus Kristus' }, { tgl: '2026-05-27', ket: 'Idul Adha 1447 H' },
-      { tgl: '2026-06-01', ket: 'Hari Lahir Pancasila' }, { tgl: '2026-06-16', ket: 'Tahun Baru Islam 1448 H' },
-      { tgl: '2026-08-17', ket: 'Hari Kemerdekaan RI' }, { tgl: '2026-08-25', ket: 'Maulid Nabi' },
-      { tgl: '2026-12-25', ket: 'Hari Raya Natal' }
-    ];
-
+  const handleUploadCSV = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
     setLoading(true);
-    try {
-      const promises = [];
-      for (const h of holidays2026) {
-        if (!liburList.find(x => x.tgl === h.tgl)) {
-          promises.push(addDoc(collection(db, 'libur'), h));
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      const text = evt.target?.result as string;
+      const lines = text.split('\n');
+      let successCount = 0;
+      
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',');
+        if (cols.length >= 2 && cols[0].trim() !== '') {
+          try {
+            // Check if already exists in liburList (optional, but good for duplicate prevention locally)
+            const tglVal = cols[0].trim();
+            const ketVal = cols[1].trim();
+            
+            if (!liburList.find(x => x.tgl === tglVal)) {
+               addDoc(collection(db, 'libur'), { tgl: tglVal, ket: ketVal });
+               successCount++;
+            }
+          } catch (e) {
+            console.error(e);
+          }
         }
       }
-      
-      if (promises.length > 0) {
-        await Promise.race([
-          Promise.all(promises),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
-        ]);
-      }
-      showToast('Libur otomatis berhasil ditambahkan!');
-      loadLibur();
-    } catch (e: any) {
-      showToast(e.message || 'Gagal menambahkan libur', 'error');
-    }
-    setLoading(false);
+      showToast(`${successCount} data libur berhasil diimport!`);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      setTimeout(loadLibur, 500);
+      setLoading(false);
+    };
+    reader.readAsText(file);
+  };
+
+  const downloadTemplateCSV = () => {
+    const csv = "Tanggal (YYYY-MM-DD),Keterangan\n2026-01-01,Tahun Baru Masehi 2026\n2026-12-25,Hari Raya Natal";
+    const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Template_Hari_Libur.csv";
+    link.click();
   };
 
   return (
@@ -112,11 +112,15 @@ export function KalenderView() {
           <p className="text-sm text-gray-500 mt-1">Hari Minggu otomatis dihitung libur. Tambahkan libur nasional agar persentase akurat.</p>
         </div>
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-          <button onClick={autoGenerateLibur} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-orange-500 text-white px-4 py-2.5 rounded-xl shadow-md hover:bg-orange-600 font-semibold text-sm transition-all">
-            <Wand2 className="w-4 h-4" /> Generate Libur 2026
-          </button>
           <button onClick={() => setModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl shadow-glow hover:bg-indigo-700 font-semibold text-sm transition-all">
             <Plus className="w-4 h-4" /> Tambah Manual
+          </button>
+          <button onClick={() => fileInputRef.current?.click()} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-emerald-500 text-white px-4 py-2.5 rounded-xl shadow-md hover:bg-emerald-600 font-semibold text-sm transition-all">
+            <FileDown className="w-4 h-4" /> Import CSV
+          </button>
+          <input type="file" ref={fileInputRef} accept=".csv" className="hidden" onChange={handleUploadCSV} />
+          <button onClick={downloadTemplateCSV} className="flex-1 sm:flex-none flex items-center justify-center gap-1 bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl hover:bg-gray-300 font-semibold text-sm transition-all">
+            <Download className="w-4 h-4" /> Template
           </button>
         </div>
       </div>

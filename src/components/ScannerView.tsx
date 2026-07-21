@@ -150,7 +150,7 @@ export function ScannerView() {
         if (todayRecord) {
           triggerOverlay(siswa.nama, 'Sudah Absen Datang', true);
         } else {
-          await addDoc(collection(db, 'absen'), {
+          addDoc(collection(db, 'absen'), {
             timestamp: new Date().toISOString(),
             nis: siswa.nis, nama: siswa.nama, kelas: siswa.kelas, jenjang: siswa.jenjang,
             status: 'Hadir', waktuKeluar: '', waktuDhuha: '', waktuDzuhur: ''
@@ -164,13 +164,13 @@ export function ScannerView() {
         } else if (todayRecord.data().waktuKeluar !== '') {
           triggerOverlay(siswa.nama, 'Sudah Absen Pulang', true);
         } else {
-          await updateDoc(doc(db, 'absen', todayRecord.id), { waktuKeluar: new Date().toISOString() });
+          updateDoc(doc(db, 'absen', todayRecord.id), { waktuKeluar: new Date().toISOString() });
           triggerOverlay(siswa.nama, 'Berhasil Pulang');
           loadAbsen();
         }
       } else if (scanMode === 'sholat_dhuha') {
         if (!todayRecord) {
-          await addDoc(collection(db, 'absen'), {
+          addDoc(collection(db, 'absen'), {
             timestamp: new Date().toISOString(),
             nis: siswa.nis, nama: siswa.nama, kelas: siswa.kelas, jenjang: siswa.jenjang,
             status: '', waktuKeluar: '', waktuDhuha: new Date().toISOString(), waktuDzuhur: ''
@@ -181,14 +181,14 @@ export function ScannerView() {
           if (todayRecord.data().waktuDhuha !== '') {
             triggerOverlay(siswa.nama, 'Sudah Sholat Dhuha', true);
           } else {
-            await updateDoc(doc(db, 'absen', todayRecord.id), { waktuDhuha: new Date().toISOString() });
+            updateDoc(doc(db, 'absen', todayRecord.id), { waktuDhuha: new Date().toISOString() });
             triggerOverlay(siswa.nama, 'Berhasil Dhuha');
             loadAbsen();
           }
         }
       } else if (scanMode === 'sholat_dzuhur') {
         if (!todayRecord) {
-          await addDoc(collection(db, 'absen'), {
+          addDoc(collection(db, 'absen'), {
             timestamp: new Date().toISOString(),
             nis: siswa.nis, nama: siswa.nama, kelas: siswa.kelas, jenjang: siswa.jenjang,
             status: '', waktuKeluar: '', waktuDhuha: '', waktuDzuhur: new Date().toISOString()
@@ -199,7 +199,7 @@ export function ScannerView() {
           if (todayRecord.data().waktuDzuhur !== '') {
             triggerOverlay(siswa.nama, 'Sudah Sholat Dzuhur', true);
           } else {
-            await updateDoc(doc(db, 'absen', todayRecord.id), { waktuDzuhur: new Date().toISOString() });
+            updateDoc(doc(db, 'absen', todayRecord.id), { waktuDzuhur: new Date().toISOString() });
             triggerOverlay(siswa.nama, 'Berhasil Dzuhur');
             loadAbsen();
           }

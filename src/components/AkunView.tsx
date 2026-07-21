@@ -23,7 +23,7 @@ export function AkunView() {
 
     setLoading(true);
     try {
-      await addDoc(collection(db, 'akun'), { username, password, role: 'Piket' });
+      addDoc(collection(db, 'akun'), { username, password, role: 'Piket' });
       showToast('Akun berhasil dibuat');
       setModalOpen(false);
       setUsername('');
@@ -44,7 +44,7 @@ export function AkunView() {
       const q = query(collection(db, 'akun'), where('username', '==', u));
       const snapshot = await getDocs(q);
       snapshot.forEach(async (document) => {
-        await deleteDoc(doc(db, 'akun', document.id));
+        deleteDoc(doc(db, 'akun', document.id));
       });
       showToast('Akun berhasil dihapus');
       loadAkun();

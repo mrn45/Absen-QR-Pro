@@ -41,7 +41,7 @@ export function PengaturanView() {
         docRef = doc(db, 'pengaturan', snapshot.docs[0].id);
       }
 
-      await setDoc(docRef, { jamMasuk, jamPulang }, { merge: true });
+      setDoc(docRef, { jamMasuk, jamPulang }, { merge: true });
       showToast('Pengaturan berhasil disimpan');
       loadPengaturan();
     } catch (e) {

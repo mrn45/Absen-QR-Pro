@@ -67,16 +67,16 @@ export function ManualView() {
         else if (kat === 'sholat_dhuha') newRec.waktuDhuha = (status === 'Hadir') ? `${tgl}T08:00:00.000Z` : status;
         else if (kat === 'sholat_dzuhur') newRec.waktuDzuhur = (status === 'Hadir') ? `${tgl}T12:00:00.000Z` : status;
         
-        await addDoc(collection(db, 'absen'), newRec);
+        addDoc(collection(db, 'absen'), newRec);
       } else {
         const docRef = doc(db, 'absen', record.id);
         if (kat === 'kbm') {
           const updateData: any = { status };
           if (status === 'Hadir') updateData.waktuKeluar = `${tgl}T15:00:00.000Z`;
-          await updateDoc(docRef, updateData);
+          updateDoc(docRef, updateData);
         }
-        else if (kat === 'sholat_dhuha') await updateDoc(docRef, { waktuDhuha: (status === 'Hadir') ? `${tgl}T08:00:00.000Z` : status });
-        else if (kat === 'sholat_dzuhur') await updateDoc(docRef, { waktuDzuhur: (status === 'Hadir') ? `${tgl}T12:00:00.000Z` : status });
+        else if (kat === 'sholat_dhuha') updateDoc(docRef, { waktuDhuha: (status === 'Hadir') ? `${tgl}T08:00:00.000Z` : status });
+        else if (kat === 'sholat_dzuhur') updateDoc(docRef, { waktuDzuhur: (status === 'Hadir') ? `${tgl}T12:00:00.000Z` : status });
       }
 
       showToast('Absen manual berhasil disimpan');

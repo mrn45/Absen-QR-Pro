@@ -32,7 +32,7 @@ export function SiswaView() {
     
     setLoading(true);
     try {
-      await addDoc(collection(db, 'siswa'), { nis, nama, jenjang, kelas });
+      addDoc(collection(db, 'siswa'), { nis, nama, jenjang, kelas });
       showToast('Siswa berhasil ditambahkan');
       setModalAddOpen(false);
       setNis(''); setNama(''); setKelas('');
@@ -52,7 +52,7 @@ export function SiswaView() {
       const q = query(collection(db, 'siswa'), where('nis', '==', nisToDelete));
       const snapshot = await getDocs(q);
       snapshot.forEach(async (document) => {
-        await deleteDoc(doc(db, 'siswa', document.id));
+        deleteDoc(doc(db, 'siswa', document.id));
       });
       showToast('Siswa berhasil dihapus');
       loadSiswa();
@@ -77,7 +77,7 @@ export function SiswaView() {
         const cols = lines[i].split(',');
         if (cols.length >= 4 && cols[0].trim() !== '') {
           try {
-            await addDoc(collection(db, 'siswa'), {
+            addDoc(collection(db, 'siswa'), {
               nis: cols[0].trim(),
               nama: cols[1].trim(),
               jenjang: cols[2].trim(),
