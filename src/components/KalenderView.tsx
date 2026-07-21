@@ -23,14 +23,17 @@ export function KalenderView() {
 
     setLoading(true);
     try {
-      await addDoc(collection(db, 'libur'), { tgl, ket });
+      await Promise.race([
+        addDoc(collection(db, 'libur'), { tgl, ket }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
+      ]);
       showToast('Libur disimpan');
       setModalOpen(false);
       setTgl('');
       setKet('');
       loadLibur();
-    } catch (e) {
-      showToast('Gagal menyimpan libur', 'error');
+    } catch (e: any) {
+      showToast(e.message || 'Gagal menyimpan libur', 'error');
     }
     setLoading(false);
   };
@@ -43,13 +46,19 @@ export function KalenderView() {
     try {
       const q = query(collection(db, 'libur'), where('tgl', '==', t));
       const snapshot = await getDocs(q);
-      snapshot.forEach(async (document) => {
-        await deleteDoc(doc(db, 'libur', document.id));
-      });
+      const promises = snapshot.docs.map(document => deleteDoc(doc(db, 'libur', document.id)));
+      
+      if (promises.length > 0) {
+        await Promise.race([
+          Promise.all(promises),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
+        ]);
+      }
+      
       showToast('Libur berhasil dihapus');
       loadLibur();
-    } catch (e) {
-      showToast('Gagal menghapus libur', 'error');
+    } catch (e: any) {
+      showToast(e.message || 'Gagal menghapus libur', 'error');
     }
     setLoading(false);
   };
@@ -74,15 +83,23 @@ export function KalenderView() {
 
     setLoading(true);
     try {
+      const promises = [];
       for (const h of holidays2026) {
         if (!liburList.find(x => x.tgl === h.tgl)) {
-          await addDoc(collection(db, 'libur'), h);
+          promises.push(addDoc(collection(db, 'libur'), h));
         }
+      }
+      
+      if (promises.length > 0) {
+        await Promise.race([
+          Promise.all(promises),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Waktu koneksi habis (timeout). Cek aturan Firestore Anda.')), 5000))
+        ]);
       }
       showToast('Libur otomatis berhasil ditambahkan!');
       loadLibur();
-    } catch (e) {
-      showToast('Gagal menambahkan libur', 'error');
+    } catch (e: any) {
+      showToast(e.message || 'Gagal menambahkan libur', 'error');
     }
     setLoading(false);
   };
